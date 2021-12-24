@@ -1,0 +1,18 @@
+description: "Publish for a distro version"
+parameters:
+  hostname:
+    description: "The Aptly server to connect to. Includes username if neccessary."
+    type: string
+  codename:
+    description: "The Ubuntu codename to release to."
+    type: string
+  project:
+    description: "The project slug to use."
+    type: string
+steps:
+  - run:
+      name: "Publish to Ubuntu Release"
+      command: |
+        ssh << parameters.hostname >> "aptly repo add ftech-ubuntu-<< parameters.codename >> ~/incoming/<< parameters.project >>-${CIRCLE_TAG}/"
+        ssh << parameters.hostname >> "aptly snapshot create ftech-ubuntu-<< parameters.codename >>--<< parameters.project >>-${CIRCLE_TAG} from repo ftech-ubuntu-<< parameters.codename >>"
+        ssh << parameters.hostname >> "aptly publish switch << parameters.codename >> filesystem:ftech:/ubuntu ftech-ubuntu-<< parameters.codename >>--<< parameters.project >>-${CIRCLE_TAG}"
