@@ -3,3 +3,7 @@
 While public and open source, this orb isn't intended for use by others
 I've built it to help with the deployment of my own projects.
 You're welcome to look at the code and learn from it, but I wouldn't suggest using it directly as it might not work for your use case.
+
+
+
+[reg-page]: https://circleci.com/developer/orbs/orb/felicianotech/aptly
